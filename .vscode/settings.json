@@ -1,0 +1,17 @@
+{
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "javascript.format.semicolons": "insert",
+    "[json]": {
+        "editor.tabSize": 4,
+        "files.insertFinalNewline": true
+    },
+    // PRETTIER SETTINGS
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "prettier.printWidth": 500,
+    "prettier.tabWidth": 4,
+    "prettier.bracketSameLine": true,
+    "prettier.singleQuote": true,
+    "prettier.arrowParens": "avoid",
+    "prettier.quoteProps": "consistent"
+}
