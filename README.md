@@ -30,6 +30,8 @@ To complete this project, please add a settings modal with the option to enable 
 
 Requests can be made to the API located at this base URL: `https://test-server.skillstruck.com/settings`
 
+Requests to the API server must be made from `http://localhost:3000` (the default dev server port for the Nuxt project)
+
 Here's a list of the endpoints:
 
 -   POST `/login`
