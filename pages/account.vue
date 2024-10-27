@@ -16,10 +16,46 @@
 
 <script setup lang="ts">
 import { useStore } from '~/stores';
-const store = useStore();
+import { useRouter } from 'vue-router';
 
-function logout() {
-    console.log('LOGGING OUT');
-    // TODO: log the user out and redirect to the login page
+
+const store = useStore();
+const router = useRouter();
+
+const logout = async () => {
+  try {
+    await $fetch('https://test-server.skillstruck.com/settings/logout', {
+      method: 'GET',
+      credentials: 'include',
+    });
+
+    store.setUser(null);
+  } catch (error) {
+    console.error('logout error', error);
+  }
+  router.push('/login');
 }
+
+
+const fetchUser = async () => {
+  try {
+    const response = await $fetch('https://test-server.skillstruck.com/settings/user', {
+        method: 'GET',
+        credentials: 'include',
+    });
+    store.setUser(response);
+  } catch (error) {
+    if (error.status === 401) {
+      router.push('/login');
+    }
+    console.error('unknown error', error);
+  }
+};
+
+
+onMounted(() => {
+  if (!store.user) {
+    fetchUser();
+  }
+});
 </script>

@@ -4,6 +4,13 @@ export const useStore = defineStore('store', {
     state: () => ({
         user: <User | null>null,
     }),
+
+    actions: {
+      setUser(user: User) {
+        this.user = user;
+      }
+    }
+
 });
 
 type User = {

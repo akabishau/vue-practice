@@ -13,5 +13,26 @@
     "prettier.bracketSameLine": true,
     "prettier.singleQuote": true,
     "prettier.arrowParens": "avoid",
-    "prettier.quoteProps": "consistent"
+    "prettier.quoteProps": "consistent",
+
+    // my settings
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": false,
+    "editor.matchBrackets": "always",
+    "editor.wordWrap": "on",
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit"
+    },
+    "javascript.suggest.autoImports": true,
+    "typescript.suggest.autoImports": true,
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact"
+    ],
+    "files.trimTrailingWhitespace": true,
+    "files.trimFinalNewlines": true,
+    "files.autoSave": "onFocusChange",
 }
