@@ -17,45 +17,24 @@
 <script setup lang="ts">
 import { useStore } from '~/stores';
 import { useRouter } from 'vue-router';
+import { logoutUser, saveUserSettings } from '~/services/api';
 
 
 const store = useStore();
 const router = useRouter();
 
 const logout = async () => {
-  try {
-    await $fetch('https://test-server.skillstruck.com/settings/logout', {
-      method: 'GET',
-      credentials: 'include',
-    });
-
-    store.setUser(null);
-  } catch (error) {
-    console.error('logout error', error);
-  }
+  await logoutUser();
+  store.clearUser();
   router.push('/login');
 }
 
 
-const fetchUser = async () => {
-  try {
-    const response = await $fetch('https://test-server.skillstruck.com/settings/user', {
-        method: 'GET',
-        credentials: 'include',
-    });
-    store.setUser(response);
-  } catch (error) {
-    if (error.status === 401) {
-      router.push('/login');
+
+    } catch (error) {
+      console.error('Error updating settings:', error);
     }
-    console.error('unknown error', error);
   }
 };
 
-
-onMounted(() => {
-  if (!store.user) {
-    fetchUser();
-  }
-});
 </script>

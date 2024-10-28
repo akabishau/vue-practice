@@ -15,9 +15,10 @@
                   <div>
                     <button type="submit">Login</button>
                   </div>
-
-
                 </form>
+
+                <p v-if="errorMessage">{{ errorMessage }}</p>
+
             </div>
         </div>
     </div>
@@ -25,17 +26,19 @@
 
 <script setup lang="ts">
 
+import { User, LoginCredentials } from '~/types';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from '~/stores/index';
+import { loginUser } from '~/services/api';
 
-// TODO: does it has to be optional?
-type LoginForm = {
-    username?: string,
-    password?: string,
-};
 
-const form = ref<LoginForm>({});
+const errorMessage = ref('');
+const form = ref<LoginCredentials>({
+  username: '',
+  password: '',
+});
+
 
 const router = useRouter();
 const store = useStore();
@@ -43,25 +46,13 @@ const store = useStore();
 
 const handleLogin = async () => {
   try {
-    const response = await $fetch('https://test-server.skillstruck.com/settings/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(form.value),
-      credentials: 'include',  // include cookies in the request
-    });
-
-    store.setUser(response);
+    const user = await loginUser(form.value);
+    store.setUser(user);
     router.push('/');
-    // router.back(); consider redirecting to the previous page
-
   } catch (err) {
-    // TODO: improve error handling
     console.error('Error during login:', err);
-    errorMessage.value = 'An unexpected error occurred.';
+    errorMessage.value = 'Something went wrong. Please verify the credentials and try again.';
   }
-
-};
+}
 
 </script>
