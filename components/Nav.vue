@@ -21,14 +21,36 @@
                 </svg>
             </NuxtLink>
         </div>
+        <Teleport to="body">
+          <Settings :isOpen="isModalOpen" @close="closeSettings" />
+        </Teleport>
     </div>
 </template>
 
-<script setup lang="ts">
+<!-- <script setup lang="ts">
 
 function openSettings() {
     console.log('OPENING SETTINGS');
     // TODO: add a settings modal
 }
 
+</script> -->
+
+
+<script setup lang="ts">
+import { ref } from 'vue';
+import Settings from '~/components/Settings.vue';
+
+const isModalOpen = ref(false);
+
+// Function to open the settings modal
+function openSettings() {
+  console.log('open settings');
+  isModalOpen.value = true;
+}
+
+// Function to close the settings modal
+function closeSettings() {
+  isModalOpen.value = false;
+}
 </script>

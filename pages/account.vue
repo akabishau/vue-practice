@@ -17,7 +17,7 @@
 <script setup lang="ts">
 import { useStore } from '~/stores';
 import { useRouter } from 'vue-router';
-import { logoutUser, saveUserSettings } from '~/services/api';
+import { logoutUser } from '~/services/api';
 
 
 const store = useStore();
@@ -28,13 +28,5 @@ const logout = async () => {
   store.clearUser();
   router.push('/login');
 }
-
-
-
-    } catch (error) {
-      console.error('Error updating settings:', error);
-    }
-  }
-};
 
 </script>
