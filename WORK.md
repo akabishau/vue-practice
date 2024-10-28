@@ -22,3 +22,4 @@
 
 ## Other improvements
 - while testing app flow found inconsistence in showing "Not logged in? Login" message on the main page since the auth is handled by middleware now and user shouldn't be on this page without being not logged in; updated logic to show current login username and give option to relogin under right one
+- add standard tailwind styles for login form

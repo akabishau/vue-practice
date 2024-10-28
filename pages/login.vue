@@ -1,27 +1,41 @@
 <template>
-    <div>
-        <div class="w-screen flex">
-            <div class="mx-auto py-16 px-4 max-w-md w-full">
-                <h1 class="font-bold text-4xl mb-8">Login</h1>
+  <div class="flex items-center justify-center min-h-screen bg-gray-50">
+    <div class="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-lg">
+      <h1 class="text-3xl font-bold text-center text-gray-800">Login</h1>
 
-                <!-- TODO: add labels and styles -->
-                <form @submit.prevent="handleLogin">
-                  <div>
-                    <input v-model="form.username" type="text" placeholder="Your email" class="border" required>
-                  </div>
-                  <div>
-                    <input v-model="form.password" type="text" placeholder="Your password" class="border" required>
-                  </div>
-                  <div>
-                    <button type="submit">Login</button>
-                  </div>
-                </form>
-
-                <p v-if="errorMessage">{{ errorMessage }}</p>
-
-            </div>
+      <form @submit.prevent="handleLogin" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Username</label>
+          <input
+            v-model="form.username"
+            type="email"
+            placeholder="Your email"
+            class="w-full px-4 py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-600 focus:outline-none"
+            required
+          />
         </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Password</label>
+          <input
+            v-model="form.password"
+            type="password"
+            placeholder="Your password"
+            class="w-full px-4 py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-600 focus:outline-none"
+            required
+          />
+        </div>
+
+        <button
+          type="submit"
+          class="w-full px-4 py-2 font-bold text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors"
+        >
+          Login
+        </button>
+        <p v-if="errorMessage" class="mt-4 text-sm font-medium text-red-600 bg-red-100 p-3 rounded-lg">{{ errorMessage }}</p>
+      </form>
     </div>
+  </div>
 </template>
 
 <script setup lang="ts">
