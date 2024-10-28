@@ -31,7 +31,6 @@ const placeholderText = computed(() =>
 );
 
 function handlePaste(event: ClipboardEvent) {
-  event.preventDefault();
 
   // Check if paste is disabled in user settings
   if (store.user?.settings.enablePaste === false) {

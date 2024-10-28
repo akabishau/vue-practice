@@ -27,15 +27,6 @@
     </div>
 </template>
 
-<!-- <script setup lang="ts">
-
-function openSettings() {
-    console.log('OPENING SETTINGS');
-    // TODO: add a settings modal
-}
-
-</script> -->
-
 
 <script setup lang="ts">
 import { ref } from 'vue';
@@ -45,7 +36,6 @@ const isModalOpen = ref(false);
 
 // Function to open the settings modal
 function openSettings() {
-  console.log('open settings');
   isModalOpen.value = true;
 }
 

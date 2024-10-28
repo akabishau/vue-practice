@@ -43,12 +43,8 @@ const store = useStore();
 
 async function saveSettings() {
   try {
-    const updatedUser = await saveUserSettings({
-      enablePaste: store.user.settings.enablePaste
-    });
-
+    const updatedUser = await saveUserSettings(store.user.settings);
     store.setUser(updatedUser);
-    console.log('Settings saved:', updatedUser);
     emit('close');
   } catch (error) {
     console.error('Error saving settings:', error);
