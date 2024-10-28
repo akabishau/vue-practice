@@ -14,10 +14,32 @@
                         New chat
                     </span>
                 </NuxtLink>
-                <p class="mt-4">Not logged in?
-                    <NuxtLink to="/login" class="text-blue-600 hover:text-blue-700 hover:underline">Login</NuxtLink>
-                </p>
+
+                <div class="mt-4">
+                  <span v-if="store.user">
+                    Logged in as <strong>{{ store.user.username }}</strong>
+                  </span>
+                  <span class="mx-2">|</span>
+                  <a @click="handleWrongLogin" class="text-blue-600 hover:text-blue-700 hover:underline cursor-pointer">Wrong User?</a>
+                </div>
             </div>
         </div>
     </div>
 </template>
+
+<script setup lang="ts">
+
+import { useStore } from '~/stores/index';
+import { useRouter } from 'vue-router';
+import { logoutUser } from '~/services/api';
+
+const store = useStore();
+const router = useRouter();
+
+async function handleWrongLogin() {
+    await logoutUser();
+    store.clearUser();
+    router.push('/login');
+}
+
+</script>

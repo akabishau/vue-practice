@@ -19,3 +19,6 @@
 ## Settings Modal and Chat Paste
 - added basic version of the modal settings component - had to do research on modals in general and ways to implement them; after a couple of iterations ended up with version that follows vue.js official examples using teleport and transition functionality
 - before implementing basic prevent pasting functionality had to research how to attach event listener to element and ClipboardEvent functionality in general
+
+## Other improvements
+- while testing app flow found inconsistence in showing "Not logged in? Login" message on the main page since the auth is handled by middleware now and user shouldn't be on this page without being not logged in; updated logic to show current login username and give option to relogin under right one
