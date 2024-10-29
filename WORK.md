@@ -23,3 +23,4 @@
 - while testing app flow found inconsistence in showing "Not logged in? Login" message on the main page since the auth is handled by middleware now and user shouldn't be on this page without being not logged in; updated logic to show current login username and give option to relogin under right one
 - During testing, I noticed inconsistencies in displaying the “Not logged in? Login” message on the main page, as the auth flow is now managed by middleware. Updated the logic to show the current username if logged in and added a “Wrong user?” option for relogin.
 - Applied similar Tailwind CSS styles to the login form for a consistency.
+- Added the comparison for the settings changes to avoid unnecessary network call in case if no actual changes were made - main challenge was to find the solution for reseting previous captured values and was solved by watching isOpen prop value.

@@ -9,12 +9,12 @@
         <div class="modal-body">
           <label class="flex items-center space-x-2">
             <span>Allow Paste in Chat</span>
-            <input type="checkbox" v-model="store.user.settings.enablePaste" class="h-4 w-4" />
+            <input type="checkbox" v-model="currentSettings.enablePaste" class="h-4 w-4" />
           </label>
         </div>
 
         <div class="modal-footer">
-          <button @click="saveSettings"
+          <button @click="handleSave"
             class="font-bold px-3 py-1 rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition-colors disabled:opacity-50">
             Save
           </button>
@@ -30,6 +30,7 @@
 
 <script setup lang="ts">
 
+import type { UserSettings } from '~/types';
 import { useStore} from '~/stores/index';
 import { saveUserSettings } from '~/services/api';
 
@@ -37,17 +38,41 @@ const props = defineProps({
   isOpen: Boolean,
 });
 
+// initialize with null to avoid errors for unavailable store or user
+const currentSettings = ref<UserSettings | null>(null);
+let initialSettings: UserSettings | null = null;
+
+
+// Compute if there are any changes, taking care to handle null values
+const hasChanges = computed(() => {
+  return JSON.stringify(currentSettings.value) !== JSON.stringify(initialSettings)
+});
+
+// add getter to watch isOpen prop as first argument
+// and a callback function as second argument
+watch(() => props.isOpen, (isOpen) => {
+  if (isOpen) {
+    // assign new initial values every time modal is opened
+    initialSettings = { ...store.user.settings };
+    currentSettings.value = { ...store.user.settings };
+  }
+});
+
 const emit = defineEmits(['close']);
 const store = useStore();
 
 
-async function saveSettings() {
-  try {
-    const updatedUser = await saveUserSettings(store.user.settings);
-    store.setUser(updatedUser);
+async function handleSave() {
+  if (hasChanges.value) {
+    try {
+      const updatedUser = await saveUserSettings(currentSettings.value);
+      store.setUser(updatedUser);
+      emit('close');
+    } catch (error) {
+      console.error('Error saving settings:', error);
+    }
+  } else {
     emit('close');
-  } catch (error) {
-    console.error('Error saving settings:', error);
   }
 }
 </script>
