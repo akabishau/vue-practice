@@ -36,15 +36,17 @@
       </form>
     </div>
   </div>
+  <ToastMessage />
 </template>
 
 <script setup lang="ts">
 
+import ToastMessage from '~/components/ToastMessage.vue';
 import { User, LoginCredentials } from '~/types';
-import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from '~/stores/index';
 import { loginUser } from '~/services/api';
+import useToast from '~/composables/useToast';
 
 
 const errorMessage = ref('');
@@ -56,6 +58,7 @@ const form = ref<LoginCredentials>({
 
 const router = useRouter();
 const store = useStore();
+const { showToast } = useToast();
 
 
 const handleLogin = async () => {
@@ -63,10 +66,12 @@ const handleLogin = async () => {
     const user = await loginUser(form.value);
     store.setUser(user);
     router.push('/');
+    showToast('loginSuccess')
   } catch (err) {
+    showToast('loginError')
     console.error('Error during login:', err);
-    errorMessage.value = 'Something went wrong. Please verify the credentials and try again.';
+    errorMessage.value = 'Please verify the credentials.';
+    showToast('loginError')
   }
 }
-
 </script>

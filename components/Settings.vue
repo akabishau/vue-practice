@@ -31,12 +31,15 @@
 <script setup lang="ts">
 
 import type { UserSettings } from '~/types';
+import { saveUserSettings } from '~/services/api'
 import { useStore} from '~/stores/index';
-import { saveUserSettings } from '~/services/api';
+import useToast from '~/composables/useToast';
 
 const props = defineProps({
   isOpen: Boolean,
 });
+
+const { showToast } = useToast();
 
 // initialize with null to avoid errors for unavailable store or user
 const currentSettings = ref<UserSettings | null>(null);
@@ -67,9 +70,10 @@ async function handleSave() {
     try {
       const updatedUser = await saveUserSettings(currentSettings.value);
       store.setUser(updatedUser);
+      showToast('settingsSaved');
       emit('close');
     } catch (error) {
-      console.error('Error saving settings:', error);
+      showToast('settingsFailed');
     }
   } else {
     emit('close');

@@ -18,10 +18,11 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useStore } from '~/stores/index';
+import useToast from '~/composables/useToast';
 
 const message = ref('');
 const store = useStore();
-
+const { showToast } = useToast();
 
 // dynamic placeholder text based on user settings
 const placeholderText = computed(() =>
@@ -31,9 +32,9 @@ const placeholderText = computed(() =>
 );
 
 function handlePaste(event: ClipboardEvent) {
-
   // Check if paste is disabled in user settings
   if (store.user?.settings.enablePaste === false) {
+    showToast('chatPasteDisabled');
     event.preventDefault();
   }
 }

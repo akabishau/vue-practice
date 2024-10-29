@@ -13,3 +13,8 @@ export type LoginCredentials = {
   username: string;
   password: string;
 };
+
+export type Toast = {
+  message: string;
+  type: 'success' | 'error';
+};

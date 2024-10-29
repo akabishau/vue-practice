@@ -24,3 +24,5 @@
 - During testing, I noticed inconsistencies in displaying the “Not logged in? Login” message on the main page, as the auth flow is now managed by middleware. Updated the logic to show the current username if logged in and added a “Wrong user?” option for relogin.
 - Applied similar Tailwind CSS styles to the login form for a consistency.
 - Added the comparison for the settings changes to avoid unnecessary network call in case if no actual changes were made - main challenge was to find the solution for reseting previous captured values and was solved by watching isOpen prop value.
+- Added a toast notifications service to handle success/error messages across the app. Initially tried local and event-based approaches, but switched to a global reactive state for simplicity and scalability after additional reseach.
+- Refactored toast service logic into composable and move messages into centralized constants file for consistency.

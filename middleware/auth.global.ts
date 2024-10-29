@@ -19,7 +19,6 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     if (user) {
       store.setUser(user);
     } else {
-      console.log('User not authenticated, redirecting to login');
       return navigateTo('/login')
     }
   }

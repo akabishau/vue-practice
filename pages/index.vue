@@ -41,5 +41,4 @@ async function handleWrongLogin() {
     store.clearUser();
     router.push('/login');
 }
-
 </script>

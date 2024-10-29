@@ -18,15 +18,18 @@
 import { useStore } from '~/stores';
 import { useRouter } from 'vue-router';
 import { logoutUser } from '~/services/api';
+import useToast from '~/composables/useToast';
 
 
 const store = useStore();
 const router = useRouter();
+const { showToast } = useToast();
 
 const logout = async () => {
   await logoutUser();
   store.clearUser();
   router.push('/login');
+  showToast('logoutSuccess')
 }
 
 </script>

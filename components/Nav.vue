@@ -21,26 +21,30 @@
                 </svg>
             </NuxtLink>
         </div>
+
         <Teleport to="body">
           <Settings :isOpen="isModalOpen" @close="closeSettings" />
         </Teleport>
+
+        <ToastMessage />
     </div>
 </template>
 
 
 <script setup lang="ts">
-import { ref } from 'vue';
+
+import ToastMessage from '~/components/ToastMessage.vue';
 import Settings from '~/components/Settings.vue';
+
 
 const isModalOpen = ref(false);
 
-// Function to open the settings modal
 function openSettings() {
   isModalOpen.value = true;
 }
 
-// Function to close the settings modal
 function closeSettings() {
   isModalOpen.value = false;
 }
+
 </script>
