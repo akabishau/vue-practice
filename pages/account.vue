@@ -16,10 +16,20 @@
 
 <script setup lang="ts">
 import { useStore } from '~/stores';
-const store = useStore();
+import { useRouter } from 'vue-router';
+import { logoutUser } from '~/services/api';
+import useToast from '~/composables/useToast';
 
-function logout() {
-    console.log('LOGGING OUT');
-    // TODO: log the user out and redirect to the login page
+
+const store = useStore();
+const router = useRouter();
+const { showToast } = useToast();
+
+const logout = async () => {
+  await logoutUser();
+  store.clearUser();
+  router.push('/login');
+  showToast('logoutSuccess')
 }
+
 </script>

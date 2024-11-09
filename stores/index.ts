@@ -1,15 +1,18 @@
 import { defineStore } from 'pinia';
+import { User } from '~/types';
 
 export const useStore = defineStore('store', {
     state: () => ({
-        user: <User | null>null,
+        user: null as User | null,
     }),
-});
 
-type User = {
-    id: number;
-    username: string;
-    settings: {
-        enablePaste: boolean;
-    };
-};
+    actions: {
+      setUser(user: User) {
+        this.user = user;
+      },
+
+      clearUser() {
+        this.user = null;
+      }
+    }
+});
