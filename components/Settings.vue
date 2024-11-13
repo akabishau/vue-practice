@@ -14,11 +14,8 @@
         </div>
 
         <div class="modal-footer">
-          <button @click="handleSave"
-            class="font-bold px-3 py-1 rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition-colors disabled:opacity-50">
-            Save
-          </button>
-          <button @click="$emit('close')"
+          <SaveButton @click="handleSave">Save</SaveButton>
+          <button @click="emit('close')"
             class="font-bold px-3 py-1 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors">
             Close
           </button>
@@ -30,6 +27,7 @@
 
 <script setup lang="ts">
 
+import SaveButton from '~/components/buttons/SaveButton.vue';
 import type { UserSettings } from '~/types';
 import { saveUserSettings } from '~/services/api'
 import { useStore} from '~/stores/index';
@@ -51,6 +49,11 @@ const hasChanges = computed(() => {
   return JSON.stringify(currentSettings.value) !== JSON.stringify(initialSettings)
 });
 
+const store = useStore();
+const emit = defineEmits<{
+  close: []
+}>()
+
 // add getter to watch isOpen prop as first argument
 // and a callback function as second argument
 watch(() => props.isOpen, (isOpen) => {
@@ -60,9 +63,6 @@ watch(() => props.isOpen, (isOpen) => {
     currentSettings.value = { ...store.user.settings };
   }
 });
-
-const emit = defineEmits(['close']);
-const store = useStore();
 
 
 async function handleSave() {
